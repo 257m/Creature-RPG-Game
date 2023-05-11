@@ -1,0 +1,4 @@
+x | There is a bug with the charizard front sprite not loading in // I'm too tired to fix it right now though // fixed it by typecasting offset // acutally it was an error with offsets.h because it was declared as uint8 instead of int8
+x | Fixed the soothing light bug
+x | Fixed a bug where it didn't reset all boosts only attack
+o | There is a bug with confusion

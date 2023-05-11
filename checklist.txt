@@ -1,0 +1,89 @@
+x | Setup up moves
+
+x | have status moves not have their effects if move misses
+
+x | Make non volatile status conditions(6/6) // Easier than I thought para was a nightmare though(because I was looking in the wrong place for the bug). Displaying it to the user wasn't to hard either just had to do some reformatting to make it look nice 
+
+x | Make it so that when a setup moves misses or dosen't have its boost the boosts aren't displayed to user(Probably create an array that stores the users boosts this turn or something of that like) // Sidenote probably better to call movefuncs in display for it // It probably be smart to just split the display func instead but that a lot of work i might just have to fork the project
+
+x | Volatile Status conditions // Retrieve will have to start check poke status data prob have to create a new data structure to keep to track of legal options for the player and then have the retrieve loop access that or create a function that takes in input from the conditional and have that determine a moves validity // Just look at the bulbapedia of volatile statuses and f this there are so many and most timers and shit but none of them are similar enough to put into a convinient data structure
+
+x | Abilities // Will have to change the data structures for PokemonDex and MyPokemon. You can't just store the abilities in pokemondex(and have the MyPokemon store a num) because the pokemon ability has to be subject to change and not reliant on the pokedata for moves like simple beam or skill swap or just to have special mystery gift pokemon in the main game. Overall the Abilities will work alot like the moves do in that there will be func pointers that will call the ability funcs in a versatile way while also leaving enough data/flags behind for the display to piece together what happened during execution
+
+x | Held Items // Same as abilities and moves really in the sense that there will item funcs with ets and eops. Although unlike those there will have to be the ability for a item to be knocked or not be in use but still be in memory because you have things like harvest that revive items that have been consumed/knocked and given the prevalence of Knock Off in the competitive scene the absence will be noticed if you are lazy and don't add for the sake of allocating a byte or two // Actually with bitfields it prob just be one bit
+
+o | Weather // This is both very straight forward and difficult (better than complex and difficult but still bad) It should be simple to store what weather it is a simple char will suffice for that but then you have things like the time of weather and displaying it to the user and then the effects of weather having to edit a bunch to have it check and take into account weather in things like speed calcs,damage calcs, ablities and items activation
+
+x | Typing // Will have to temp typing in MyPokemon for moves like soak and burn up but its not really of importance right now 
+
+o | Entry Hazards // This will be fun i guess straightforward enough it dosen't really need a blurb but i just need two numbers or gorups of bools where each bit will tell if a certain hazard is up or not and then edit switcheroo and switch functions to apply affects // Will need functions and item calls in switch functions
+
+x | Critical Hits
+
+x | Condense execution in to a func for easier editing
+
+x | Condense View Party in to a func for easier editing as I have to update it for items and such
+
+x | Update displayparty as it hasn't been given the opportunity to catch up with the rest of the game
+
+x | Change Moveslot struct so that it stores a char not a pointer to save space like items do
+
+x | Change PlayerParty struct so that it stores party members in array and not seperately
+
+x | Put Natures into to an array and have the MyPokemon struct store natures as a unsigned char or a bitfield
+
+x | implement Big_Pecks // it might be hard? No really it needs to be quite versatile you might have to add a function for when a ability deactivates // not so hard actually after a bit of thinking i just added a ability call on switch although i will have to add more for cases like when it is suppressed or the Ability suddenly changes via moves like simple beam but that is for another time
+
+// this isn't a task just a note // after spending 2 mmonths on this project i decided to actually look at the source code for the pokemon games and it turns my whole just making everything a function isn't exactly optimal and i think i might just rewrite the whole project. You know what f that, so what the current way im doing things is not optimal who cares pointers and funcs takes lots of memory but in looking at just how much memory you actually have on modern devices i doubt im even gonna reach above 10% ram usage // each pointer is 8 bytes so if we have say a 1000 moves 1000 items and 1000 abilities thats only 24 kb and you could say what about the funcs themselves but even if the func are taking 100 times the ram that moves items and abilities are taking that's only 2400 kb and i have like a gig of ram so i don't think thats a problem although most of the project is going to be RO by the end product
+
+// another note // i think i might need rethink how move,item and ability funcs are handling input(ima shorten moves,items,ability to mib) because rather than having to write the same code twice i just create a array that stores pointers to Player and EnemyParty
+
+x | change PlayerParty and EnemyParty to array
+
+x | change ppmult so that it store a 2 bit uint
+
+x | change damages into array
+
+x | update display party to show abilties
+
+x | create a universal DBOG
+
+x | Merge SelfBoost and Otherboost
+
+x | implement protect
+
+x | add flinch and confusion (2/2)
+
+x | Turn stabs into array
+
+x | Turn Para into array
+
+x | make MyPokemon store an bitfield unsigned int of size 10 rather than a pointer and turn the pokemondex struct into a const array
+
+x | make a crit boosting move
+
+x | add a bit of internal documentation
+
+x | make moves have two movefuncs and double the GNRL_PURPOSE
+
+x | Generalize items
+
+x | Text compression // this is harder than I thought // that took four hours of back breaking work but i got it done // Dec 1, 2022 lol I decided to scrap Text compression because it just makes adding moves and pokemon a pain
+
+x | compress pokemon aswell
+
+x | I haven't added to this in awhile but i need to get the partyviewer done
+
+x | i need to get scrolling text working // mostly done
+
+x | i need to rewrite some of the my old code that use tt with the ternary operator ?:
+
+// it's Dec 1, I am back working on the project from my very long break. Here are the things to do
+
+x | Make status infliction move support any arbitrary effect
+
+o | Make a macro system for execution times for clarity of code and organization // this is always going to be thing that needs to be done but isn't ever
+
+x | Make effect functions actually do something
+
+o | Add drop shadows to text
