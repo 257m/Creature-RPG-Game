@@ -12,6 +12,7 @@ void InitGLFW()
     PANIC(!state->window, "Failed to open GLFW window.\n");
 
     glfwMakeContextCurrent(state->window);
+	glfwSetKeyCallback(state->window, event_queue_key_callback);
 
     // Get info of GPU and supported OpenGL version
     printf("Renderer: %s\n", glGetString(GL_RENDERER));

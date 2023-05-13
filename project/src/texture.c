@@ -5,11 +5,11 @@
 Texture* texture_generate(char* file_path)
 {
 	Texture* tex = malloc(sizeof(Texture));
-	tex->data = stbi_load(file_path, &tex->width, &tex->height, &tex->id, 3);
+	tex->data = stbi_load(file_path, &tex->width, &tex->height, &tex->id, 4);
 	glGenTextures(1, &tex->id);
 	glBindTexture(GL_TEXTURE_2D, tex->id);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tex->width, tex->height, 0,
-		GL_RGB, GL_UNSIGNED_BYTE, tex->data);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex->width, tex->height, 0,
+		GL_RGBA, GL_UNSIGNED_BYTE, tex->data);
 	return tex;
 }
 
