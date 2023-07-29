@@ -2,6 +2,6 @@
 
 void clean_up_program()
 {
-	glfwDestroyWindow(state->window);
+    glfwDestroyWindow(state->window);
     glfwTerminate();
 }

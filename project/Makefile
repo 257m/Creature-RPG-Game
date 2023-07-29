@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -g -Wno-everything `pkg-config --cflags glfw3 glu gl` -I/nix/store/niq09gs0z4xpsn45n3bfy80s17819mnw-stb-20180211/include
+CFLAGS = -g -Wno-everything `pkg-config --cflags glfw3 glu gl` 
 LDFLAGS = `pkg-config --libs glfw3 glu gl` -lm
 
 # This is the name of the executable we are going to create

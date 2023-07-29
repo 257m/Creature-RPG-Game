@@ -14,6 +14,12 @@ typedef unsigned long u64;
 typedef float f32;
 typedef double f64;
 
+typedef float vec2 [2];
+typedef int ivec2 [2];
+typedef unsigned int uvec2 [2];
+typedef u8 u8vec2 [2];
+typedef float vec4 [4];
+
 #define member(type, member) ((type *)0)->member
 #define member_size(type, member) sizeof(((type *)0)->member)
 
