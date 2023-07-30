@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <time.h>
+#include <alloca.h>
 #include "state.h"
 #include "errors.h"
 #include "init.h"
@@ -27,11 +29,11 @@ int main()
 						break;
 					case GLFW_KEY_W:
 					case GLFW_KEY_UP:
-						state->world.player_pos[1]--;
+						state->world.player_pos[1]++;
 						break;
 					case GLFW_KEY_S:
 					case GLFW_KEY_DOWN:
-						state->world.player_pos[1]++;
+						state->world.player_pos[1]--;
 						break;
 					case GLFW_KEY_D:
 					case GLFW_KEY_RIGHT:

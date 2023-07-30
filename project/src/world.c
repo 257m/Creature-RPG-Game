@@ -53,17 +53,22 @@ void chunk_vertices_init()
 void chunk_render(Chunk* c, vec2 offset)
 {
     glEnable(GL_TEXTURE_2D);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); 
     glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, tile_atlas.id);
+    glBindTexture(GL_TEXTURE_2D, tile_atlas.id);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP);
     glBindBuffer(GL_ARRAY_BUFFER, chunk_vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof chunk_vertices, chunk_vertices, GL_STATIC_DRAW);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
     glEnableVertexAttribArray(1);
-    glUniform2f(uniform_offset, offset[0], offset[1]);
+    glUniform2fv(uniform_offset, 1, offset);
+    /*vec2 current;
+    glGetUniformfv(program, uniform_offset, current);
+    printf("%f, %f\r\n", current[0], current[1]);*/
 
     glDrawArrays(GL_QUADS, 0, sizeof chunk_vertices);
 }
@@ -75,6 +80,7 @@ void world_init(World* w, u8 rend_dist)
     program = shader_create_program("src/shaders/world.v.glsl", "src/shaders/world.f.glsl");
 
     uniform_offset = glGetUniformLocation(program, "offset");
+    PANIC(uniform_offset == -1, "Could not get location of uniform offset!\r\n");
 
     glGenBuffers(1, &chunk_vbo);
 	tile_atlas.data = stbi_load("images/tile_atlas.png", &tile_atlas.width, &tile_atlas.height, &tile_atlas.id, 4);
@@ -86,7 +92,6 @@ void world_init(World* w, u8 rend_dist)
     stbi_image_free(tile_atlas.data);
 
     glUseProgram(program);
-    glUniform2f(uniform_offset, 0.0f, 0.0f);
 
     w->player_pos[0] = 0;
     w->player_pos[1] = 0;
@@ -94,5 +99,6 @@ void world_init(World* w, u8 rend_dist)
 
 void world_render(World* w)
 {
-    chunk_render(NULL, &(vec2){0.0f, 0.0f});
+    vec2 offset = {0.0f - ((f32)w->player_pos[0] / 8.0f), 0.0f - ((f32)w->player_pos[1] / 6.0f)};
+    chunk_render(NULL, offset);
 }
