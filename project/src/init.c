@@ -7,7 +7,7 @@ void InitGLFW()
     glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
 
     // Open a window and create its OpenGL context
-    state->window = glfwCreateWindow(state->window_width, state->window_height, "Pokemon Battle Simulator", NULL, NULL);
+    state->window = glfwCreateWindow(state->window_width, state->window_height, "Creature RPG Game", NULL, NULL);
     
     PANIC(!state->window, "Failed to open GLFW window.\n");
 
