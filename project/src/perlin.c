@@ -1,5 +1,6 @@
 /* Simple Perlin Noise Library */
 #include "data_types.h"
+#include "cglm/vec2.h"
 
 f32 interpolate(f32 a0, f32 a1, f32 w)
 {

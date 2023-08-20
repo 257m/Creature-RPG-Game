@@ -11,6 +11,7 @@ typedef struct {
 	u32 window_width, window_height;
 	Event_Queue* event_queue;
 	World world;
+    f64 xpos, ypos;
 } State;
 
 extern State* state;

@@ -1,11 +1,10 @@
-#version 330 core
-layout(location = 0) in vec2 coord;
-layout(location = 1) in vec2 atexcoords;
+#version 120
 
-uniform vec2 offset;
-varying vec2 texcoords;
+attribute vec4 coord;
+uniform mat4 mvp;
+varying vec4 texcoord;
 
 void main(void) {
-	gl_Position = vec4(coord + offset, 0.0, 1.0);
-	texcoords = atexcoords;
+        texcoord = coord;
+        gl_Position = mvp * vec4(coord.xyz, 1);
 }

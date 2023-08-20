@@ -1,6 +1,8 @@
 #include "state.h"
 #include "errors.h"
 
+extern void cursor_position_callback(GLFWwindow* window, double xpos, double ypos);
+
 void InitGLFW()
 {
 	PANIC(!glfwInit(), "Failed to initialize GLFW\n");
@@ -13,6 +15,8 @@ void InitGLFW()
 
     glfwMakeContextCurrent(state->window);
 	glfwSetKeyCallback(state->window, event_queue_key_callback);
+	glfwSetCursorPosCallback(state->window, cursor_position_callback);
+	glfwSetInputMode(state->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     // Get info of GPU and supported OpenGL version
     printf("Renderer: %s\n", glGetString(GL_RENDERER));
